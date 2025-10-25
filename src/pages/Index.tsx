@@ -376,7 +376,9 @@ export default function Index() {
               <div className="animate-fade-in-up" style={{ animationDelay: '200ms' }}>
                 <Icon name="Mail" size={32} className="mx-auto mb-2" />
                 <h3 className="font-semibold mb-1">Email</h3>
-                <p className="text-white/80">info@kommertech.ru</p>
+                <a href="mailto:zentr06@yandex.ru" className="text-white/80 hover:text-white transition-colors">
+                  zentr06@yandex.ru
+                </a>
               </div>
               <div className="animate-fade-in-up" style={{ animationDelay: '300ms' }}>
                 <Icon name="MapPin" size={32} className="mx-auto mb-2" />
