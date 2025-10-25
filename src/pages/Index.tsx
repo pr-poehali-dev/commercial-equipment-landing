@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import Icon from '@/components/ui/icon';
 import { Badge } from '@/components/ui/badge';
+import LeasingCalculator from '@/components/LeasingCalculator';
 
 export default function Index() {
   const [formData, setFormData] = useState({
@@ -124,6 +125,7 @@ export default function Index() {
             <span className="text-2xl font-bold text-secondary">КоммерТех</span>
           </div>
           <nav className="hidden md:flex gap-6">
+            <a href="#calculator" className="text-foreground hover:text-primary transition-colors">Калькулятор</a>
             <a href="#catalog" className="text-foreground hover:text-primary transition-colors">Каталог</a>
             <a href="#advantages" className="text-foreground hover:text-primary transition-colors">Преимущества</a>
             <a href="#services" className="text-foreground hover:text-primary transition-colors">Услуги</a>
@@ -154,9 +156,23 @@ export default function Index() {
                 <a href="#catalog">Посмотреть каталог</a>
               </Button>
               <Button size="lg" variant="outline" className="bg-white text-secondary hover:bg-white/90 border-white" asChild>
-                <a href="#contacts">Рассчитать лизинг</a>
+                <a href="#calculator">Рассчитать лизинг</a>
               </Button>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="calculator" className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12 animate-fade-in">
+            <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-4">Калькулятор лизинга</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Рассчитайте предварительную стоимость лизинга для вашей техники
+            </p>
+          </div>
+          <div className="max-w-3xl mx-auto">
+            <LeasingCalculator />
           </div>
         </div>
       </section>
