@@ -369,7 +369,9 @@ export default function Index() {
               <div className="animate-fade-in-up" style={{ animationDelay: '100ms' }}>
                 <Icon name="Phone" size={32} className="mx-auto mb-2" />
                 <h3 className="font-semibold mb-1">Телефон</h3>
-                <p className="text-white/80">+7 (937) 702-64-57</p>
+                <a href="tel:+79377026457" className="text-white/80 hover:text-white transition-colors">
+                  +7 (937) 702-64-57
+                </a>
               </div>
               <div className="animate-fade-in-up" style={{ animationDelay: '200ms' }}>
                 <Icon name="Mail" size={32} className="mx-auto mb-2" />
