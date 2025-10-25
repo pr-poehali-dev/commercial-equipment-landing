@@ -115,11 +115,35 @@ export default function Index() {
     }
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    alert('Спасибо за заявку! Мы свяжемся с вами в ближайшее время.');
-    setFormData({ name: '', phone: '', email: '', message: '' });
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('https://functions.poehali.dev/11101d65-2c97-460b-ae92-559bbbe0f634', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        alert('✅ Спасибо за заявку! Мы свяжемся с вами в ближайшее время.');
+        setFormData({ name: '', phone: '', email: '', message: '' });
+      } else {
+        alert(`❌ Ошибка: ${result.error || 'Не удалось отправить заявку'}`);
+      }
+    } catch (error) {
+      alert('❌ Ошибка соединения. Попробуйте позже или позвоните нам.');
+      console.error('Error:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -356,8 +380,8 @@ export default function Index() {
                       className="bg-white"
                     />
                   </div>
-                  <Button type="submit" size="lg" className="w-full bg-primary hover:bg-primary/90 text-white">
-                    Отправить заявку
+                  <Button type="submit" size="lg" className="w-full bg-primary hover:bg-primary/90 text-white" disabled={isSubmitting}>
+                    {isSubmitting ? 'Отправка...' : 'Отправить заявку'}
                   </Button>
                   <p className="text-xs text-center text-muted-foreground">
                     Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности
