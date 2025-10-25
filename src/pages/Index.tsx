@@ -19,26 +19,32 @@ export default function Index() {
     {
       title: 'Тягачи',
       description: 'Мощные седельные тягачи для дальних перевозок',
-      image: 'https://cdn.poehali.dev/projects/3c502107-1d2a-43d0-ac1e-be472e1700c8/files/a771b7e5-c09a-4b78-b7c8-71d6ee83972e.jpg',
+      image: 'https://cdn.poehali.dev/files/08717217-3015-43bb-8af9-1c13d9565cf3.jpg',
       features: ['До 500 л.с.', 'Евро-5/6', 'Автономный отопитель']
     },
     {
       title: 'Рефрижераторы',
       description: 'Современные холодильные установки',
-      image: 'https://cdn.poehali.dev/projects/3c502107-1d2a-43d0-ac1e-be472e1700c8/files/3cbe7577-16bc-4ca4-8398-8b58601f8a1b.jpg',
+      image: 'https://cdn.poehali.dev/files/45902518-a888-4de0-b534-e4aaad4444bd.jpg',
       features: ['Температура -25°C', 'Мультитемпературные зоны', 'GPS-мониторинг']
     },
     {
-      title: 'Коммунальная техника',
-      description: 'Специализированные машины для городских служб',
-      image: 'https://cdn.poehali.dev/projects/3c502107-1d2a-43d0-ac1e-be472e1700c8/files/9835debb-467a-490f-832d-bd4209855349.jpg',
-      features: ['Высокая надежность', 'Круглогодичная эксплуатация', 'Сервисная поддержка']
+      title: 'Бортовые с КМУ',
+      description: 'Грузовики с манипуляторной установкой',
+      image: 'https://cdn.poehali.dev/files/e6b191a4-79de-48a5-a151-74d3923643a6.jpg',
+      features: ['Грузоподъемность КМУ до 10 т', 'Кузов 6-8 метров', 'Автоматизированная стрела']
     },
     {
-      title: 'Грузовики',
+      title: 'Бортовые грузовики',
       description: 'Универсальные грузовые автомобили',
-      image: 'https://cdn.poehali.dev/projects/3c502107-1d2a-43d0-ac1e-be472e1700c8/files/a771b7e5-c09a-4b78-b7c8-71d6ee83972e.jpg',
-      features: ['Грузоподъемность до 20 т', 'Различные конфигурации', 'Экономичность']
+      image: 'https://cdn.poehali.dev/files/e46e8030-ddef-4fd3-85ba-ad9cb23479dd.jpg',
+      features: ['Грузоподъемность до 20 т', 'Тентованный кузов', 'Экономичность']
+    },
+    {
+      title: 'Фургоны',
+      description: 'Грузовики с цельнометаллическим фургоном',
+      image: 'https://cdn.poehali.dev/files/519f290e-4ea6-4d88-82a3-141aeedc3f2f.jpg',
+      features: ['Защита от непогоды', 'Усиленный кузов', 'Боковая загрузка']
     }
   ];
 
