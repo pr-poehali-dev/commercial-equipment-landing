@@ -1,5 +1,5 @@
 '''
-Business: Send contact form emails via Yandex SMTP
+Business: Send contact form emails via Yandex SMTP and Telegram notifications
 Args: event with httpMethod, body containing name, phone, email, message
 Returns: HTTP response with success/error status
 '''
@@ -7,6 +7,8 @@ Returns: HTTP response with success/error status
 import json
 import smtplib
 import os
+import urllib.request
+import urllib.parse
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from typing import Dict, Any
@@ -125,25 +127,68 @@ Email: {email if email else 'не указан'}
     msg.attach(part2)
     
     # Send email via Yandex SMTP
+    email_sent = False
+    telegram_sent = False
+    errors = []
+    
     try:
         with smtplib.SMTP_SSL('smtp.yandex.ru', 465) as server:
             server.login(sender_email, smtp_password)
             server.send_message(msg)
+        email_sent = True
+    except Exception as e:
+        errors.append(f'Email: {str(e)}')
+    
+    # Send Telegram notification
+    telegram_token = os.environ.get('TELEGRAM_BOT_TOKEN')
+    telegram_chat_id = os.environ.get('TELEGRAM_CHAT_ID')
+    
+    if telegram_token and telegram_chat_id:
+        telegram_message = f'''🚀 *Новая заявка с сайта КоммерТех*
+
+👤 *Имя:* {name}
+📞 *Телефон:* {phone}
+📧 *Email:* {email if email else 'не указан'}
+
+💬 *Сообщение:*
+{message if message else 'отсутствует'}'''
         
+        try:
+            telegram_url = f'https://api.telegram.org/bot{telegram_token}/sendMessage'
+            data = urllib.parse.urlencode({
+                'chat_id': telegram_chat_id,
+                'text': telegram_message,
+                'parse_mode': 'Markdown'
+            }).encode('utf-8')
+            
+            req = urllib.request.Request(telegram_url, data=data)
+            with urllib.request.urlopen(req, timeout=10) as response:
+                if response.status == 200:
+                    telegram_sent = True
+        except Exception as e:
+            errors.append(f'Telegram: {str(e)}')
+    
+    # Return response based on what succeeded
+    if email_sent or telegram_sent:
         return {
             'statusCode': 200,
             'headers': {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*'
             },
-            'body': json.dumps({'success': True, 'message': 'Заявка отправлена'})
+            'body': json.dumps({
+                'success': True,
+                'message': 'Заявка отправлена',
+                'email_sent': email_sent,
+                'telegram_sent': telegram_sent
+            })
         }
-    except Exception as e:
+    else:
         return {
             'statusCode': 500,
             'headers': {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*'
             },
-            'body': json.dumps({'error': f'Ошибка отправки: {str(e)}'})
+            'body': json.dumps({'error': f'Ошибка отправки: {", ".join(errors)}'})
         }
